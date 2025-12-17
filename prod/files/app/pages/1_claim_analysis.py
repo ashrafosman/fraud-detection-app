@@ -98,7 +98,7 @@ st.markdown("""
 # Read configuration from environment (set in app.yaml)
 CATALOG = os.getenv("CATALOG_NAME", "fraud_detection_dev")
 SCHEMA = os.getenv("SCHEMA_NAME", "claims_analysis")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "148ccb90800933a1")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "159828d8fa91cd28")  # From app.yaml
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 VECTOR_INDEX = f"{CATALOG}.{SCHEMA}.fraud_cases_index"
 

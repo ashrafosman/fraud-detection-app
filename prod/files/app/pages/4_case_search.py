@@ -23,7 +23,7 @@ st.markdown("*Find similar historical fraud cases using AI-powered semantic sear
 # Configuration
 CATALOG = os.getenv("CATALOG_NAME", "fraud_detection_dev")
 SCHEMA = os.getenv("SCHEMA_NAME", "claims_analysis")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "159828d8fa91cd28")  # From app.yaml
 VECTOR_INDEX = f"{CATALOG}.{SCHEMA}.fraud_cases_index"
 CLAIMS_TABLE = f"{CATALOG}.{SCHEMA}.claims_data"
 FRAUD_ANALYSIS_TABLE = f"{CATALOG}.{SCHEMA}.fraud_analysis"

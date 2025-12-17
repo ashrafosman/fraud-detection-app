@@ -116,7 +116,7 @@ st.markdown("""
 # Configuration (read from environment variables)
 CATALOG = os.getenv("CATALOG_NAME", "fraud_detection_dev")
 SCHEMA = os.getenv("SCHEMA_NAME", "claims_analysis")
-WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "148ccb90800933a1")
+WAREHOUSE_ID = os.getenv("DATABRICKS_WAREHOUSE_ID", "159828d8fa91cd28")  # From app.yaml
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 
 # Initialize Databricks client (uses Databricks Apps authentication)
