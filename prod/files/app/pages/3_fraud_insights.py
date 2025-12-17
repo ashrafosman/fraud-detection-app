@@ -88,14 +88,69 @@ def get_workspace_client():
 def get_sql_connection():
     """Create Databricks SQL connection - called lazily when needed"""
     try:
+        # Check if WAREHOUSE_ID is set
+        if not WAREHOUSE_ID:
+            st.error("❌ **SQL Connection Error**: WAREHOUSE_ID not configured")
+            st.info("""
+            **To fix this:**
+            1. Set `DATABRICKS_WAREHOUSE_ID` in your `app.yaml`
+            2. Or set it as environment variable
+            3. Get warehouse ID from: SQL Warehouses → Copy ID
+            """)
+            return None
+        
         cfg = Config()
+        
+        # Check if we have valid config
+        if not cfg.host:
+            st.error("❌ **SQL Connection Error**: Databricks host not configured")
+            st.info("""
+            **To fix this:**
+            - Ensure you're running in Databricks Apps environment
+            - Or configure authentication in `~/.databrickscfg`
+            """)
+            return None
+        
         return sql.connect(
             server_hostname=cfg.host,
             http_path=f"/sql/1.0/warehouses/{WAREHOUSE_ID}",
             credentials_provider=lambda: cfg.authenticate,
         )
     except Exception as e:
-        st.error(f"SQL Connection error: {e}")
+        error_msg = str(e)
+        st.error(f"❌ **SQL Connection Error**: {error_msg}")
+        
+        # Provide specific troubleshooting based on error type
+        if "authentication" in error_msg.lower() or "unauthorized" in error_msg.lower():
+            st.warning("""
+            **🔐 Authentication Issue:**
+            - Ensure the app's service principal has permissions
+            - Run: `./grant_permissions.sh dev`
+            - Check SQL Warehouse permissions
+            """)
+        elif "not found" in error_msg.lower():
+            st.warning(f"""
+            **📍 Warehouse Not Found:**
+            - Warehouse ID: `{WAREHOUSE_ID}`
+            - Verify warehouse exists and is running
+            - Check warehouse ID in `app.yaml`
+            """)
+        elif "timeout" in error_msg.lower():
+            st.warning("""
+            **⏱️ Connection Timeout:**
+            - Check if SQL Warehouse is running
+            - Try starting the warehouse manually
+            - Check network connectivity
+            """)
+        else:
+            st.info("""
+            **💡 General Troubleshooting:**
+            - Check SQL Warehouse is running
+            - Verify permissions are granted
+            - Check `app.yaml` configuration
+            - Review app logs in Databricks
+            """)
+        
         return None
 
 w = get_workspace_client()
@@ -141,6 +196,7 @@ def get_fraud_statistics():
     """Get overall fraud statistics"""
     sql_conn = get_sql_connection()
     if not sql_conn:
+        st.warning("⚠️ Cannot fetch statistics: SQL connection unavailable")
         return None
     
     try:
@@ -156,13 +212,20 @@ def get_fraud_statistics():
             result = cursor.fetchone()
             if result:
                 return {
-                    "total_claims": result[0],
-                    "fraud_cases": result[1],
-                    "fraud_rate": result[2],
-                    "avg_risk_score": result[3]
+                    "total_claims": result[0] or 0,
+                    "fraud_cases": result[1] or 0,
+                    "fraud_rate": result[2] or 0.0,
+                    "avg_risk_score": result[3] or 0.0
                 }
     except Exception as e:
-        st.error(f"Error fetching statistics: {e}")
+        st.error(f"❌ Error fetching statistics: {e}")
+        if "not found" in str(e).lower() or "does not exist" in str(e).lower():
+            st.info("""
+            **📊 Table Not Found:**
+            The fraud_analysis table may not exist yet.
+            - Run batch processing first to populate data
+            - Or run setup notebooks to create tables
+            """)
     return None
 
 @st.cache_data(ttl=300)
@@ -170,7 +233,7 @@ def get_fraud_by_type():
     """Get fraud breakdown by type"""
     sql_conn = get_sql_connection()
     if not sql_conn:
-        return None
+        return None  # Error already shown by get_sql_connection
     
     try:
         with sql_conn.cursor() as cursor:
@@ -187,7 +250,7 @@ def get_fraud_by_type():
             if results:
                 return pd.DataFrame(results, columns=["Fraud Type", "Count"])
     except Exception as e:
-        st.error(f"Error fetching fraud types: {e}")
+        st.warning(f"⚠️ Cannot fetch fraud types: {e}")
     return None
 
 @st.cache_data(ttl=300)
@@ -195,7 +258,7 @@ def get_top_indicators():
     """Get top fraud indicators"""
     sql_conn = get_sql_connection()
     if not sql_conn:
-        return None
+        return None  # Error already shown by get_sql_connection
     
     try:
         with sql_conn.cursor() as cursor:
@@ -214,7 +277,7 @@ def get_top_indicators():
                     "Count": indicator_counts.values
                 })
     except Exception as e:
-        st.error(f"Error fetching indicators: {e}")
+        st.warning(f"⚠️ Cannot fetch indicators: {e}")
     return None
 
 @st.cache_data(ttl=300)
@@ -222,7 +285,7 @@ def get_fraud_trends():
     """Get fraud detection trends over time"""
     sql_conn = get_sql_connection()
     if not sql_conn:
-        return None
+        return None  # Error already shown by get_sql_connection
     
     try:
         with sql_conn.cursor() as cursor:
@@ -239,7 +302,7 @@ def get_fraud_trends():
             if results:
                 return pd.DataFrame(results, columns=["Date", "Total Claims", "Fraud Cases"])
     except Exception as e:
-        st.error(f"Error fetching trends: {e}")
+        st.warning(f"⚠️ Cannot fetch trends: {e}")
     return None
 
 # Main Dashboard
