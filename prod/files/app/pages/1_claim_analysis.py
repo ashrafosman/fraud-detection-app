@@ -107,9 +107,26 @@ VECTOR_INDEX = f"{CATALOG}.{SCHEMA}.fraud_cases_index"
 def get_workspace_client():
     """Initialize Databricks WorkspaceClient (automatically authenticated in Databricks Apps)"""
     try:
-        return WorkspaceClient()
+        # Check for OAuth credentials
+        client_id = os.getenv("DATABRICKS_CLIENT_ID")
+        client_secret = os.getenv("DATABRICKS_CLIENT_SECRET")
+        host = os.getenv("DATABRICKS_HOST")
+        
+        if client_id and client_secret and host:
+            return WorkspaceClient(
+                host=f"https://{host}" if not host.startswith("http") else host,
+                client_id=client_id,
+                client_secret=client_secret
+            )
+        elif host:
+            return WorkspaceClient(host=f"https://{host}" if not host.startswith("http") else host)
+        else:
+            return WorkspaceClient()
     except Exception as e:
-        st.error(f"Failed to initialize Databricks client: {e}")
+        if "default auth: cannot configure default credentials" in str(e):
+            st.warning("⚠️ Running in local dev mode. Deploy to Databricks Apps for full functionality.")
+        else:
+            st.error(f"Failed to initialize Databricks client: {e}")
         return None
 
 w = get_workspace_client()

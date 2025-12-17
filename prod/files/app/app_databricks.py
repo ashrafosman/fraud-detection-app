@@ -124,12 +124,60 @@ ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
 def get_workspace_client():
     """Initialize Databricks WorkspaceClient (automatically authenticated in Databricks Apps)"""
     try:
-        return WorkspaceClient()
+        # Check if we have OAuth credentials configured
+        client_id = os.getenv("DATABRICKS_CLIENT_ID")
+        client_secret = os.getenv("DATABRICKS_CLIENT_SECRET")
+        host = os.getenv("DATABRICKS_HOST")
+        
+        if client_id and client_secret and host:
+            # OAuth authentication with service principal
+            from databricks.sdk.oauth import ClientCredentials
+            
+            return WorkspaceClient(
+                host=f"https://{host}" if not host.startswith("http") else host,
+                client_id=client_id,
+                client_secret=client_secret
+            )
+        elif host:
+            # Try with host only (will use other auth methods)
+            return WorkspaceClient(host=f"https://{host}" if not host.startswith("http") else host)
+        else:
+            # Default initialization (works in Databricks Apps)
+            return WorkspaceClient()
+            
     except Exception as e:
-        st.error(f"Failed to initialize Databricks client: {e}")
+        error_msg = str(e)
+        
+        if "default auth: cannot configure default credentials" in error_msg:
+            st.error("❌ **Authentication Configuration Missing**")
+            st.warning("""
+            **For Databricks Apps deployment:**
+            - This error occurs during local development
+            - The app will authenticate automatically when deployed to Databricks Apps
+            - To test locally, configure authentication in `~/.databrickscfg`
+            
+            **To fix:**
+            1. **Deploy to Databricks** (recommended):
+               ```bash
+               databricks apps deploy frauddetection-prod --source-code-path prod/files/app
+               ```
+            
+            2. **Or configure local auth**:
+               - Go to: https://docs.databricks.com/en/dev-tools/auth.html
+               - Set up authentication profile
+               - Or set DATABRICKS_HOST and DATABRICKS_TOKEN environment variables
+            """)
+        else:
+            st.error(f"Failed to initialize Databricks client: {error_msg}")
+            
         return None
 
 w = get_workspace_client()
+
+# Show authentication status in sidebar
+if w is None:
+    st.sidebar.error("⚠️ Not connected to Databricks")
+    st.sidebar.info("Deploy to Databricks Apps to enable full functionality")
 
 # Enhanced Sidebar
 st.sidebar.markdown("""
