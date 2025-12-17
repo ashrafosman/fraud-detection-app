@@ -234,23 +234,27 @@ st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("## 🚀 Quick Start")
 
 # Quick action buttons
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
-    if st.button("📊 Analyze Claim", use_container_width=True, type="primary"):
+    if st.button("📊 Analyze", use_container_width=True, type="primary"):
         st.switch_page("pages/1_claim_analysis.py")
 
 with col2:
-    if st.button("⚡ Batch Process", use_container_width=True):
+    if st.button("⚡ Batch", use_container_width=True):
         st.switch_page("pages/2_batch_processing.py")
 
 with col3:
-    if st.button("📈 View Insights", use_container_width=True):
+    if st.button("📈 Insights", use_container_width=True):
         st.switch_page("pages/3_fraud_insights.py")
 
 with col4:
-    if st.button("🔎 Search Cases", use_container_width=True):
+    if st.button("🔎 Search", use_container_width=True):
         st.switch_page("pages/4_case_search.py")
+
+with col5:
+    if st.button("📸 Mobile", use_container_width=True, help="NEW! Take photos to check fraud"):
+        st.switch_page("pages/5_mobile_fraud_check.py")
 
 st.markdown("---")
 
