@@ -21,54 +21,154 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for modern look
+# Custom CSS - Futuristic Databricks Theme (Dark Teal/Cyan)
 st.markdown("""
 <style>
-    /* Main theme colors */
+    /* Main theme colors - Databricks Futuristic */
     :root {
-        --primary-color: #FF3621;
-        --secondary-color: #1E88E5;
-        --success-color: #00C853;
-        --warning-color: #FFB300;
-        --danger-color: #D32F2F;
+        --primary-cyan: #00D9FF;
+        --secondary-teal: #00B8D4;
+        --dark-bg: #0A1929;
+        --darker-bg: #071318;
+        --card-bg: #132F3F;
+        --border-glow: rgba(0, 217, 255, 0.3);
+        --text-primary: #E0F7FA;
+        --text-secondary: #80DEEA;
+        --success-green: #00E676;
+        --danger-red: #FF1744;
+        --warning-amber: #FFC107;
     }
     
-    /* Better metrics styling */
-    [data-testid="stMetricValue"] {
-        font-size: 2rem;
-        font-weight: 700;
+    /* Global background */
+    .stApp {
+        background: linear-gradient(135deg, #0A1929 0%, #071318 100%);
+        color: var(--text-primary);
     }
     
-    /* Enhanced sidebar */
+    /* Main content area */
+    .main {
+        background: transparent;
+    }
+    
+    /* Enhanced sidebar - Databricks dark theme */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        background: linear-gradient(180deg, #071318 0%, #0A1929 100%);
+        border-right: 1px solid rgba(0, 217, 255, 0.2);
     }
     
-    /* Better buttons */
+    [data-testid="stSidebar"] * {
+        color: var(--text-primary) !important;
+    }
+    
+    /* Futuristic buttons with glow */
     .stButton>button {
-        border-radius: 8px;
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 184, 212, 0.1) 100%);
+        border: 2px solid var(--primary-cyan);
+        border-radius: 12px;
+        color: var(--primary-cyan) !important;
         font-weight: 600;
+        padding: 0.75rem 1.5rem;
         transition: all 0.3s ease;
-        border: none;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .stButton>button:hover {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.2) 0%, rgba(0, 184, 212, 0.2) 100%);
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.4), 0 0 60px rgba(0, 217, 255, 0.2);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: var(--success-green);
     }
     
-    /* Card-like containers */
-    .main-card {
-        background: white;
+    /* Primary button special styling */
+    .stButton>button[kind="primary"] {
+        background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--secondary-teal) 100%);
+        color: var(--darker-bg) !important;
+        border: none;
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+    }
+    
+    .stButton>button[kind="primary"]:hover {
+        box-shadow: 0 0 40px rgba(0, 217, 255, 0.7), 0 0 80px rgba(0, 217, 255, 0.3);
+    }
+    
+    /* Card-like containers with glow */
+    .main-card, .stExpander, div[data-testid="stExpander"] {
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 16px;
         padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         margin: 1rem 0;
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1), inset 0 0 20px rgba(0, 217, 255, 0.05);
+        backdrop-filter: blur(10px);
     }
     
-    /* Animated success/error messages */
+    /* Metrics with cyberpunk glow */
+    [data-testid="stMetricValue"] {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--success-green) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: var(--text-secondary) !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.875rem;
+    }
+    
+    /* Headers with cyberpunk glow */
+    h1, h2, h3 {
+        color: var(--primary-cyan) !important;
+        text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+        font-weight: 700;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--success-green) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Input fields */
+    .stTextInput>div>div>input, .stTextArea>div>div>textarea {
+        background: rgba(19, 47, 63, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 8px;
+        color: var(--text-primary);
+        padding: 0.75rem;
+    }
+    
+    .stTextInput>div>div>input:focus, .stTextArea>div>div>textarea:focus {
+        border-color: var(--primary-cyan);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    }
+    
+    /* Select boxes */
+    .stSelectbox>div>div {
+        background: rgba(19, 47, 63, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 8px;
+    }
+    
+    /* Progress bars */
+    .stProgress>div>div>div {
+        background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--success-green) 100%);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    }
+    
+    /* Alerts with glow */
     .stAlert {
+        background: rgba(19, 47, 63, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
         animation: slideIn 0.3s ease-out;
+        backdrop-filter: blur(10px);
     }
     
     @keyframes slideIn {
@@ -82,33 +182,197 @@ st.markdown("""
         }
     }
     
-    /* Better typography */
-    h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        background: linear-gradient(120deg, #FF3621, #FF6B6B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 1rem;
+    /* Success alerts */
+    .stSuccess {
+        background: rgba(0, 230, 118, 0.1);
+        border-color: var(--success-green);
+        box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
     }
     
-    /* Status badge */
-    .status-badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
+    /* Error alerts */
+    .stError {
+        background: rgba(255, 23, 68, 0.1);
+        border-color: var(--danger-red);
+        box-shadow: 0 0 20px rgba(255, 23, 68, 0.2);
+    }
+    
+    /* Warning alerts */
+    .stWarning {
+        background: rgba(255, 193, 7, 0.1);
+        border-color: var(--warning-amber);
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+    }
+    
+    /* Info alerts */
+    .stInfo {
+        background: rgba(0, 217, 255, 0.1);
+        border-color: var(--primary-cyan);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+    
+    /* Dataframes */
+    .stDataFrame {
+        border: 1px solid rgba(0, 217, 255, 0.3);
         border-radius: 12px;
-        font-size: 0.875rem;
-        font-weight: 600;
+        overflow: hidden;
     }
     
+    /* Tables */
+    table {
+        background: rgba(19, 47, 63, 0.6);
+        color: var(--text-primary);
+    }
+    
+    thead tr th {
+        background: rgba(0, 217, 255, 0.2) !important;
+        color: var(--primary-cyan) !important;
+        border-bottom: 2px solid var(--primary-cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    tbody tr {
+        border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+    }
+    
+    tbody tr:hover {
+        background: rgba(0, 217, 255, 0.05);
+    }
+    
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 1rem;
+        background: rgba(19, 47, 63, 0.4);
+        border-radius: 12px;
+        padding: 0.5rem;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        background: transparent;
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        border-radius: 8px;
+        color: var(--text-secondary);
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .stTabs [data-baseweb="tab"]:hover {
+        background: rgba(0, 217, 255, 0.1);
+        border-color: var(--primary-cyan);
+    }
+    
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.2) 0%, rgba(0, 184, 212, 0.2) 100%);
+        border-color: var(--primary-cyan);
+        color: var(--primary-cyan) !important;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    }
+    
+    /* Expander */
+    .streamlit-expanderHeader {
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
+        color: var(--primary-cyan) !important;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        border-color: var(--primary-cyan);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+    
+    /* Spinner */
+    .stSpinner>div {
+        border-color: var(--primary-cyan);
+        border-right-color: transparent;
+    }
+    
+    /* Links */
+    a {
+        color: var(--primary-cyan) !important;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: var(--success-green) !important;
+        text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    }
+    
+    /* Code blocks */
+    code {
+        background: rgba(19, 47, 63, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        border-radius: 6px;
+        color: var(--primary-cyan);
+        padding: 0.2rem 0.4rem;
+    }
+    
+    pre {
+        background: rgba(19, 47, 63, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: var(--darker-bg);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--primary-cyan) 0%, var(--secondary-teal) 100%);
+        border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--primary-cyan);
+        box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    }
+    
+    /* Glowing border animation */
+    @keyframes borderGlow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+        50% {
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
+        }
+    }
+    
+    /* Status indicators */
     .status-ready {
-        background-color: #E8F5E9;
-        color: #2E7D32;
+        background: linear-gradient(135deg, rgba(0, 230, 118, 0.2) 0%, rgba(0, 230, 118, 0.1) 100%);
+        border: 1px solid var(--success-green);
+        color: var(--success-green);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
     }
     
     .status-error {
-        background-color: #FFEBEE;
-        color: #C62828;
+        background: linear-gradient(135deg, rgba(255, 23, 68, 0.2) 0%, rgba(255, 23, 68, 0.1) 100%);
+        border: 1px solid var(--danger-red);
+        color: var(--danger-red);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(255, 23, 68, 0.3);
+    }
+    
+    /* File uploader */
+    [data-testid="stFileUploader"] {
+        background: rgba(19, 47, 63, 0.6);
+        border: 2px dashed rgba(0, 217, 255, 0.3);
+        border-radius: 12px;
+        padding: 2rem;
+    }
+    
+    [data-testid="stFileUploader"]:hover {
+        border-color: var(--primary-cyan);
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -179,100 +443,164 @@ if w is None:
     st.sidebar.error("⚠️ Not connected to Databricks")
     st.sidebar.info("Deploy to Databricks Apps to enable full functionality")
 
-# Enhanced Sidebar
+# Enhanced Sidebar - Futuristic design
 st.sidebar.markdown("""
-<div style='text-align: center; padding: 1rem 0;'>
-    <h1 style='font-size: 2rem; margin: 0; color: white;'>🛡️</h1>
-    <h2 style='font-size: 1.5rem; margin: 0.5rem 0; color: white;'>Fraud Detection</h2>
-    <p style='color: #90CAF9; font-size: 0.875rem;'>AI-Powered Claims Analysis</p>
+<div style='text-align: center; padding: 1.5rem 0; border-bottom: 1px solid rgba(0, 217, 255, 0.2);'>
+    <h1 style='font-size: 2.5rem; margin: 0; filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.8));'>🛡️</h1>
+    <h2 style='font-size: 1.5rem; margin: 0.5rem 0; color: #00D9FF; text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);'>
+        Fraud Detection
+    </h2>
+    <p style='color: #80DEEA; font-size: 0.875rem; letter-spacing: 1px;'>AI-POWERED CLAIMS ANALYSIS</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Environment info
-env_color = "#4CAF50" if ENVIRONMENT == "prod" else "#FFC107" if ENVIRONMENT == "staging" else "#2196F3"
+# Environment info - Futuristic design
+env_color = "#00E676" if ENVIRONMENT == "prod" else "#FFC107" if ENVIRONMENT == "staging" else "#00D9FF"
+env_glow = "rgba(0, 230, 118, 0.3)" if ENVIRONMENT == "prod" else "rgba(255, 193, 7, 0.3)" if ENVIRONMENT == "staging" else "rgba(0, 217, 255, 0.3)"
 st.sidebar.markdown(f"""
-<div style='background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0;'>
-    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;'>
-        <span style='color: {env_color}; font-size: 1.5rem;'>●</span>
-        <span style='color: white; font-weight: 600;'>Environment: {ENVIRONMENT.upper()}</span>
+<div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 217, 255, 0.3); 
+     padding: 1rem; border-radius: 12px; margin: 1rem 0;
+     box-shadow: 0 4px 20px {env_glow};'>
+    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;'>
+        <span style='color: {env_color}; font-size: 1.5rem; filter: drop-shadow(0 0 10px {env_color});'>●</span>
+        <span style='color: #00D9FF; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;'>
+            {ENVIRONMENT}
+        </span>
     </div>
-    <div style='color: #B0BEC5; font-size: 0.875rem;'>
-        <div>📁 Catalog: <code style='background: rgba(0,0,0,0.2); padding: 0.125rem 0.5rem; border-radius: 4px;'>{CATALOG}</code></div>
-        <div style='margin-top: 0.25rem;'>📊 Schema: <code style='background: rgba(0,0,0,0.2); padding: 0.125rem 0.5rem; border-radius: 4px;'>{SCHEMA}</code></div>
+    <div style='color: #80DEEA; font-size: 0.75rem;'>
+        <div style='margin-bottom: 0.5rem;'>
+            📁 <span style='color: #00D9FF;'>Catalog:</span>
+            <code style='background: rgba(0,0,0,0.4); padding: 0.125rem 0.5rem; border-radius: 4px; color: #00E676;'>{CATALOG}</code>
+        </div>
+        <div>
+            📊 <span style='color: #00D9FF;'>Schema:</span>
+            <code style='background: rgba(0,0,0,0.4); padding: 0.125rem 0.5rem; border-radius: 4px; color: #00E676;'>{SCHEMA}</code>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
+st.sidebar.markdown("<div style='border-top: 1px solid rgba(0, 217, 255, 0.2); margin: 1rem 0;'></div>", unsafe_allow_html=True)
 
-# Navigation with icons
+# Navigation with icons - Futuristic design
 st.sidebar.markdown("""
-<div style='color: white;'>
-    <h3 style='color: #90CAF9; font-size: 1rem; margin-bottom: 1rem;'>📍 NAVIGATION</h3>
-    <div style='margin-left: 0.5rem;'>
-        <div style='margin-bottom: 0.75rem;'>🏠 <strong>Home</strong> - Dashboard & Overview</div>
-        <div style='margin-bottom: 0.75rem;'>📊 <strong>Claim Analysis</strong> - AI Agent Analysis</div>
-        <div style='margin-bottom: 0.75rem;'>⚡ <strong>Batch Processing</strong> - Bulk Claims</div>
-        <div style='margin-bottom: 0.75rem;'>📈 <strong>Fraud Insights</strong> - Analytics & Trends</div>
-        <div style='margin-bottom: 0.75rem;'>🔎 <strong>Case Search</strong> - Similar Cases</div>
+<div style='color: #80DEEA;'>
+    <h3 style='color: #00D9FF; font-size: 0.9rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;'>
+        📍 Navigation
+    </h3>
+    <div style='margin-left: 0rem;'>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; background: rgba(0, 217, 255, 0.05); border-left: 3px solid #00D9FF; border-radius: 4px;'>
+            🏠 <strong style='color: #00D9FF;'>Home</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Dashboard</span>
+        </div>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
+            📊 <strong style='color: #80DEEA;'>Claim Analysis</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- AI Agent</span>
+        </div>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
+            ⚡ <strong style='color: #80DEEA;'>Batch Processing</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Bulk</span>
+        </div>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
+            📈 <strong style='color: #80DEEA;'>Fraud Insights</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Analytics</span>
+        </div>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
+            🔎 <strong style='color: #80DEEA;'>Case Search</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Similar</span>
+        </div>
+        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
+            📱 <strong style='color: #80DEEA;'>Mobile Check</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Photo AI</span>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-st.sidebar.markdown("---")
+st.sidebar.markdown("<div style='border-top: 1px solid rgba(0, 217, 255, 0.2); margin: 1rem 0;'></div>", unsafe_allow_html=True)
 
-# Quick stats in sidebar
+# Quick stats in sidebar - Futuristic design
 st.sidebar.markdown("""
-<div style='color: white;'>
-    <h3 style='color: #90CAF9; font-size: 1rem; margin-bottom: 1rem;'>⚡ QUICK STATS</h3>
+<div style='color: #80DEEA;'>
+    <h3 style='color: #00D9FF; font-size: 0.9rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;'>
+        ⚡ Quick Stats
+    </h3>
 </div>
 """, unsafe_allow_html=True)
 
-# Main page with hero section
+# Main page with futuristic hero section
 st.markdown("""
-<div style='text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; margin-bottom: 2rem; color: white;'>
-    <h1 style='font-size: 3rem; margin: 0; color: white; -webkit-text-fill-color: white;'>🛡️ AI-Powered Fraud Detection</h1>
-    <p style='font-size: 1.25rem; margin-top: 1rem; opacity: 0.95;'>Intelligent Insurance Claims Analysis Platform</p>
-    <p style='font-size: 1rem; margin-top: 0.5rem; opacity: 0.85;'>Powered by LangGraph Agents • Unity Catalog • Vector Search</p>
+<div style='text-align: center; padding: 3rem 2rem; background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%); 
+     border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 20px; margin-bottom: 2rem; 
+     box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2), inset 0 0 60px rgba(0, 217, 255, 0.05);
+     backdrop-filter: blur(10px);'>
+    <div style='font-size: 1rem; color: #00D9FF; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 1rem; opacity: 0.8;'>
+        ◆ DATABRICKS ◆
+    </div>
+    <h1 style='font-size: 3.5rem; margin: 0; color: #00D9FF; text-shadow: 0 0 30px rgba(0, 217, 255, 0.6);'>
+        AI-Powered Fraud Detection System
+    </h1>
+    <p style='font-size: 1.25rem; margin-top: 1.5rem; color: #80DEEA; letter-spacing: 1px;'>
+        Intelligent Insurance Claims Analysis Platform
+    </p>
+    <div style='margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0, 217, 255, 0.2);'>
+        <span style='color: #00D9FF; font-size: 0.9rem; opacity: 0.8;'>
+            ⚡ LangGraph Agents  •  🎯 Unity Catalog  •  🔍 Vector Search  •  💬 Genie AI
+        </span>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Key features cards
+# Key features cards - Futuristic design
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
-    <div style='text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🧠</div>
-        <div style='font-weight: 600; margin-bottom: 0.5rem;'>LangGraph Agents</div>
-        <div style='font-size: 0.875rem; opacity: 0.9;'>ReAct pattern reasoning</div>
+    <div style='text-align: center; padding: 2rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 217, 255, 0.4); border-radius: 16px; 
+         box-shadow: 0 8px 32px rgba(0, 217, 255, 0.15), inset 0 0 30px rgba(0, 217, 255, 0.05);
+         transition: all 0.3s ease; backdrop-filter: blur(10px);'>
+        <div style='font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.6));'>🧠</div>
+        <div style='font-weight: 700; margin-bottom: 0.5rem; color: #00D9FF; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;'>
+            LangGraph Agents
+        </div>
+        <div style='font-size: 0.8rem; color: #80DEEA; opacity: 0.85;'>ReAct pattern reasoning</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
-    <div style='text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px; color: white;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🎯</div>
-        <div style='font-weight: 600; margin-bottom: 0.5rem;'>UC AI Functions</div>
-        <div style='font-size: 0.875rem; opacity: 0.9;'>Classify, Extract, Explain</div>
+    <div style='text-align: center; padding: 2rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 230, 118, 0.4); border-radius: 16px; 
+         box-shadow: 0 8px 32px rgba(0, 230, 118, 0.15), inset 0 0 30px rgba(0, 230, 118, 0.05);
+         transition: all 0.3s ease; backdrop-filter: blur(10px);'>
+        <div style='font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.6));'>🎯</div>
+        <div style='font-weight: 700; margin-bottom: 0.5rem; color: #00E676; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;'>
+            UC AI Functions
+        </div>
+        <div style='font-size: 0.8rem; color: #80DEEA; opacity: 0.85;'>Classify, Extract, Explain</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
-    <div style='text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px; color: white;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>🔍</div>
-        <div style='font-weight: 600; margin-bottom: 0.5rem;'>Vector Search</div>
-        <div style='font-size: 0.875rem; opacity: 0.9;'>Find similar cases</div>
+    <div style='text-align: center; padding: 2rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 184, 212, 0.4); border-radius: 16px; 
+         box-shadow: 0 8px 32px rgba(0, 184, 212, 0.15), inset 0 0 30px rgba(0, 184, 212, 0.05);
+         transition: all 0.3s ease; backdrop-filter: blur(10px);'>
+        <div style='font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(0, 184, 212, 0.6));'>🔍</div>
+        <div style='font-weight: 700; margin-bottom: 0.5rem; color: #00B8D4; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;'>
+            Vector Search
+        </div>
+        <div style='font-size: 0.8rem; color: #80DEEA; opacity: 0.85;'>Find similar cases</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col4:
     st.markdown("""
-    <div style='text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px; color: white;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.5rem;'>💬</div>
-        <div style='font-weight: 600; margin-bottom: 0.5rem;'>Genie API</div>
-        <div style='font-size: 0.875rem; opacity: 0.9;'>Natural language queries</div>
+    <div style='text-align: center; padding: 2rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(255, 193, 7, 0.4); border-radius: 16px; 
+         box-shadow: 0 8px 32px rgba(255, 193, 7, 0.15), inset 0 0 30px rgba(255, 193, 7, 0.05);
+         transition: all 0.3s ease; backdrop-filter: blur(10px);'>
+        <div style='font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.6));'>💬</div>
+        <div style='font-weight: 700; margin-bottom: 0.5rem; color: #FFC107; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;'>
+            Genie API
+        </div>
+        <div style='font-size: 0.8rem; color: #80DEEA; opacity: 0.85;'>Natural language queries</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -326,72 +654,96 @@ with col4:
 
 st.markdown("---")
 
-# Architecture Visualization
-st.markdown("## 🏗️ System Architecture")
+# Architecture Visualization - Futuristic design
+st.markdown("""
+<h2 style='color: #00D9FF; margin-top: 2rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px;'>
+    🏗️ System Architecture
+</h2>
+""", unsafe_allow_html=True)
 
 # Create an interactive architecture diagram using columns and cards
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white; margin-bottom: 1rem;'>
-        <div style='font-size: 1.5rem; font-weight: 600;'>👤 User Input (Claim)</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 217, 255, 0.4); 
+         padding: 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 1rem;
+         box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2);'>
+        <div style='font-size: 1.5rem; font-weight: 600; color: #00D9FF; text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);'>
+            👤 User Input (Claim)
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0;'>⬇️</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0; color: #00D9FF;'>⬇️</div>", unsafe_allow_html=True)
     
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white; margin-bottom: 1rem;'>
-        <div style='font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;'>🧠 LangGraph ReAct Agent</div>
-        <div style='font-size: 0.875rem; opacity: 0.9;'>Reason → Act → Observe → Repeat</div>
+    <div style='background: rgba(19, 47, 63, 0.8); border: 2px solid rgba(0, 217, 255, 0.6); 
+         padding: 1.5rem; border-radius: 16px; text-align: center; margin-bottom: 1rem;
+         box-shadow: 0 8px 32px rgba(0, 217, 255, 0.3), inset 0 0 30px rgba(0, 217, 255, 0.1);'>
+        <div style='font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #00D9FF; text-shadow: 0 0 20px rgba(0, 217, 255, 0.6);'>
+            🧠 LangGraph ReAct Agent
+        </div>
+        <div style='font-size: 0.875rem; color: #80DEEA;'>Reason → Act → Observe → Repeat</div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0;'>⬇️</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0; color: #00D9FF;'>⬇️</div>", unsafe_allow_html=True)
 
 # Tools row
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 1rem; border-radius: 8px; text-align: center; color: white;'>
-        <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🎯</div>
-        <div style='font-size: 0.875rem; font-weight: 600;'>UC Classify</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 230, 118, 0.4); 
+         padding: 1rem; border-radius: 12px; text-align: center;
+         box-shadow: 0 4px 20px rgba(0, 230, 118, 0.2);'>
+        <div style='font-size: 1.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.5));'>🎯</div>
+        <div style='font-size: 0.875rem; font-weight: 600; color: #00E676;'>UC Classify</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 1rem; border-radius: 8px; text-align: center; color: white;'>
-        <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>📊</div>
-        <div style='font-size: 0.875rem; font-weight: 600;'>UC Extract</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 217, 255, 0.4); 
+         padding: 1rem; border-radius: 12px; text-align: center;
+         box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);'>
+        <div style='font-size: 1.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));'>📊</div>
+        <div style='font-size: 0.875rem; font-weight: 600; color: #00D9FF;'>UC Extract</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); padding: 1rem; border-radius: 8px; text-align: center; color: white;'>
-        <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>🔍</div>
-        <div style='font-size: 0.875rem; font-weight: 600;'>Vector Search</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 184, 212, 0.4); 
+         padding: 1rem; border-radius: 12px; text-align: center;
+         box-shadow: 0 4px 20px rgba(0, 184, 212, 0.2);'>
+        <div style='font-size: 1.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px rgba(0, 184, 212, 0.5));'>🔍</div>
+        <div style='font-size: 0.875rem; font-weight: 600; color: #00B8D4;'>Vector Search</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col4:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); padding: 1rem; border-radius: 8px; text-align: center; color: white;'>
-        <div style='font-size: 1.5rem; margin-bottom: 0.5rem;'>💬</div>
-        <div style='font-size: 0.875rem; font-weight: 600;'>Genie API</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(255, 193, 7, 0.4); 
+         padding: 1rem; border-radius: 12px; text-align: center;
+         box-shadow: 0 4px 20px rgba(255, 193, 7, 0.2);'>
+        <div style='font-size: 1.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.5));'>💬</div>
+        <div style='font-size: 0.875rem; font-weight: 600; color: #FFC107;'>Genie API</div>
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0;'>⬇️</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; font-size: 2rem; margin: 1rem 0; color: #00D9FF;'>⬇️</div>", unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.markdown("""
-    <div style='background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 1.5rem; border-radius: 12px; text-align: center; color: white;'>
-        <div style='font-size: 1.5rem; font-weight: 600;'>📋 Fraud Assessment Report</div>
+    <div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 230, 118, 0.4); 
+         padding: 1.5rem; border-radius: 16px; text-align: center;
+         box-shadow: 0 8px 32px rgba(0, 230, 118, 0.2);'>
+        <div style='font-size: 1.5rem; font-weight: 600; color: #00E676; text-shadow: 0 0 15px rgba(0, 230, 118, 0.5);'>
+            📋 Fraud Assessment Report
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -438,59 +790,84 @@ with col2:
 
 st.markdown("---")
 
-# Performance metrics
-st.markdown("## ⚡ Performance Metrics")
+# Performance metrics - Futuristic design
+st.markdown("""
+<h2 style='color: #00D9FF; margin-top: 2rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 2px;'>
+    ⚡ Performance Metrics
+</h2>
+""", unsafe_allow_html=True)
 
 col1, col2, col3, col4, col5 = st.columns(5)
 
 with col1:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem; background: #E8F5E9; border-radius: 8px;'>
-        <div style='font-size: 2rem; font-weight: 700; color: #2E7D32;'>94%</div>
-        <div style='font-size: 0.875rem; color: #558B2F;'>Accuracy</div>
+    <div style='text-align: center; padding: 1.5rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 230, 118, 0.4); border-radius: 12px;
+         box-shadow: 0 4px 20px rgba(0, 230, 118, 0.2);'>
+        <div style='font-size: 2.2rem; font-weight: 700; color: #00E676; text-shadow: 0 0 20px rgba(0, 230, 118, 0.6);'>94%</div>
+        <div style='font-size: 0.75rem; color: #80DEEA; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;'>Accuracy</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem; background: #E3F2FD; border-radius: 8px;'>
-        <div style='font-size: 2rem; font-weight: 700; color: #1565C0;'>3-8s</div>
-        <div style='font-size: 0.875rem; color: #1976D2;'>Per Claim</div>
+    <div style='text-align: center; padding: 1.5rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 217, 255, 0.4); border-radius: 12px;
+         box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);'>
+        <div style='font-size: 2.2rem; font-weight: 700; color: #00D9FF; text-shadow: 0 0 20px rgba(0, 217, 255, 0.6);'>3-8s</div>
+        <div style='font-size: 0.75rem; color: #80DEEA; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;'>Per Claim</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem; background: #FFF3E0; border-radius: 8px;'>
-        <div style='font-size: 2rem; font-weight: 700; color: #EF6C00;'>$0.002</div>
-        <div style='font-size: 0.875rem; color: #F57C00;'>Cost/Claim</div>
+    <div style='text-align: center; padding: 1.5rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(255, 193, 7, 0.4); border-radius: 12px;
+         box-shadow: 0 4px 20px rgba(255, 193, 7, 0.2);'>
+        <div style='font-size: 2.2rem; font-weight: 700; color: #FFC107; text-shadow: 0 0 20px rgba(255, 193, 7, 0.6);'>$0.002</div>
+        <div style='font-size: 0.75rem; color: #80DEEA; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;'>Cost/Claim</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col4:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem; background: #F3E5F5; border-radius: 8px;'>
-        <div style='font-size: 2rem; font-weight: 700; color: #6A1B9A;'>1,298x</div>
-        <div style='font-size: 0.875rem; color: #7B1FA2;'>ROI</div>
+    <div style='text-align: center; padding: 1.5rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(0, 184, 212, 0.4); border-radius: 12px;
+         box-shadow: 0 4px 20px rgba(0, 184, 212, 0.2);'>
+        <div style='font-size: 2.2rem; font-weight: 700; color: #00B8D4; text-shadow: 0 0 20px rgba(0, 184, 212, 0.6);'>1,298x</div>
+        <div style='font-size: 0.75rem; color: #80DEEA; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;'>ROI</div>
     </div>
     """, unsafe_allow_html=True)
 
 with col5:
     st.markdown("""
-    <div style='text-align: center; padding: 1rem; background: #FCE4EC; border-radius: 8px;'>
-        <div style='font-size: 2rem; font-weight: 700; color: #C2185B;'>4</div>
-        <div style='font-size: 0.875rem; color: #D81B60;'>AI Tools</div>
+    <div style='text-align: center; padding: 1.5rem 1rem; background: rgba(19, 47, 63, 0.6); 
+         border: 1px solid rgba(156, 39, 176, 0.4); border-radius: 12px;
+         box-shadow: 0 4px 20px rgba(156, 39, 176, 0.2);'>
+        <div style='font-size: 2.2rem; font-weight: 700; color: #AB47BC; text-shadow: 0 0 20px rgba(156, 39, 176, 0.6);'>4</div>
+        <div style='font-size: 0.75rem; color: #80DEEA; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem;'>AI Tools</div>
     </div>
     """, unsafe_allow_html=True)
 
 st.markdown("---")
 
-# Get started CTA
+# Get started CTA - Futuristic design
 st.markdown("""
-<div style='background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 16px; text-align: center; color: white; margin-top: 2rem;'>
-    <h2 style='color: white; -webkit-text-fill-color: white; margin-bottom: 1rem;'>Ready to Get Started?</h2>
-    <p style='font-size: 1.125rem; opacity: 0.95; margin-bottom: 1.5rem;'>Select a page from the sidebar or use the quick action buttons above to begin analyzing claims!</p>
-    <p style='font-size: 0.875rem; opacity: 0.85;'>💡 Tip: Start with the <strong>Claim Analysis</strong> page to see the AI agent in action</p>
+<div style='background: rgba(19, 47, 63, 0.8); border: 2px solid rgba(0, 217, 255, 0.5); 
+     padding: 3rem 2rem; border-radius: 20px; text-align: center; margin-top: 3rem;
+     box-shadow: 0 8px 40px rgba(0, 217, 255, 0.3), inset 0 0 60px rgba(0, 217, 255, 0.05);
+     backdrop-filter: blur(10px);'>
+    <h2 style='color: #00D9FF; text-shadow: 0 0 30px rgba(0, 217, 255, 0.6); margin-bottom: 1rem; font-size: 2rem;'>
+        ⚡ Ready to Get Started?
+    </h2>
+    <p style='font-size: 1.125rem; color: #80DEEA; margin-bottom: 1.5rem;'>
+        Select a page from the sidebar or use the quick action buttons above to begin analyzing claims!
+    </p>
+    <div style='padding: 1rem; background: rgba(0, 217, 255, 0.1); border-radius: 12px; border: 1px solid rgba(0, 217, 255, 0.3); margin-top: 1rem;'>
+        <p style='font-size: 0.875rem; color: #00D9FF; margin: 0;'>
+            💡 <strong>Pro Tip:</strong> Start with the <strong>Claim Analysis</strong> page to see the AI agent in action
+        </p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 

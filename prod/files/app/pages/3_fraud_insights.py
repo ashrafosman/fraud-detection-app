@@ -22,41 +22,76 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for dashboard
+# Custom CSS - Futuristic dashboard
 st.markdown("""
 <style>
+    .stApp {
+        background: linear-gradient(135deg, #0A1929 0%, #071318 100%);
+        color: #E0F7FA;
+    }
+    
     .insight-card {
-        background: white;
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
         padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
         margin: 1rem 0;
+        backdrop-filter: blur(10px);
     }
     
     .metric-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%);
+        border: 1px solid rgba(0, 217, 255, 0.4);
         padding: 1.5rem;
-        border-radius: 12px;
-        color: white;
+        border-radius: 16px;
+        color: #00D9FF;
         text-align: center;
-        box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2);
     }
     
     .chart-container {
-        background: white;
-        padding: 1rem;
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        padding: 1.5rem;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+    
+    .stButton>button {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 184, 212, 0.1) 100%);
+        border: 2px solid #00D9FF;
+        color: #00D9FF !important;
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
+# Header - Futuristic design
 st.markdown("""
-<div style='text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 16px; margin-bottom: 2rem; color: white;'>
-    <h1 style='font-size: 2.5rem; margin: 0; color: white; -webkit-text-fill-color: white;'>📈 Fraud Insights</h1>
-    <p style='font-size: 1.125rem; margin-top: 0.5rem; opacity: 0.95;'>Analytics and trends from fraud detection analysis</p>
-    <p style='font-size: 0.875rem; margin-top: 0.25rem; opacity: 0.85;'>Real-time dashboard • Interactive charts • Genie-powered queries</p>
+<div style='text-align: center; padding: 3rem 2rem; 
+     background: linear-gradient(135deg, rgba(0, 184, 212, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%);
+     border: 1px solid rgba(0, 184, 212, 0.3); border-radius: 20px; margin-bottom: 2rem;
+     box-shadow: 0 8px 32px rgba(0, 184, 212, 0.2), inset 0 0 60px rgba(0, 184, 212, 0.05);
+     backdrop-filter: blur(10px);'>
+    <div style='font-size: 0.9rem; color: #00B8D4; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem; opacity: 0.8;'>
+        ◆ ANALYTICS DASHBOARD ◆
+    </div>
+    <h1 style='font-size: 3rem; margin: 0; color: #00B8D4; text-shadow: 0 0 30px rgba(0, 184, 212, 0.6);'>
+        Fraud Insights
+    </h1>
+    <p style='font-size: 1.125rem; margin-top: 1rem; color: #80DEEA;'>
+        Analytics and trends from fraud detection analysis
+    </p>
+    <p style='font-size: 0.875rem; margin-top: 0.5rem; color: #00B8D4; opacity: 0.8;'>
+        ⚡ Real-time dashboard  •  📊 Interactive charts  •  🤖 Genie-powered queries
+    </p>
 </div>
 """, unsafe_allow_html=True)
 

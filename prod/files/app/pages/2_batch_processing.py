@@ -20,29 +20,44 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS
+# Custom CSS - Futuristic design
 st.markdown("""
 <style>
+    .stApp {
+        background: linear-gradient(135deg, #0A1929 0%, #071318 100%);
+        color: #E0F7FA;
+    }
+    
     .batch-card {
-        background: white;
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
         padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
         margin: 1rem 0;
+        backdrop-filter: blur(10px);
     }
     
     .processing-animation {
         text-align: center;
         padding: 2rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 12px;
-        color: white;
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%);
+        border: 2px solid rgba(0, 217, 255, 0.5);
+        border-radius: 16px;
+        color: #00D9FF;
         animation: pulse 2s ease-in-out infinite;
+        box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
     }
     
     @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.02); }
+        0%, 100% { 
+            transform: scale(1); 
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+        }
+        50% { 
+            transform: scale(1.02); 
+            box-shadow: 0 0 60px rgba(0, 217, 255, 0.5);
+        }
     }
     
     .stats-grid {
@@ -53,20 +68,44 @@ st.markdown("""
     }
     
     .stat-card {
-        background: white;
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
         padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
         text-align: center;
+    }
+    
+    .stButton>button {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 184, 212, 0.1) 100%);
+        border: 2px solid #00D9FF;
+        color: #00D9FF !important;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
+# Header - Futuristic design
 st.markdown("""
-<div style='text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 16px; margin-bottom: 2rem; color: white;'>
-    <h1 style='font-size: 2.5rem; margin: 0; color: white; -webkit-text-fill-color: white;'>⚡ Batch Processing</h1>
-    <p style='font-size: 1.125rem; margin-top: 0.5rem; opacity: 0.95;'>Process multiple claims simultaneously with AI-powered fraud detection</p>
+<div style='text-align: center; padding: 3rem 2rem; 
+     background: linear-gradient(135deg, rgba(0, 230, 118, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%);
+     border: 1px solid rgba(0, 230, 118, 0.3); border-radius: 20px; margin-bottom: 2rem;
+     box-shadow: 0 8px 32px rgba(0, 230, 118, 0.2), inset 0 0 60px rgba(0, 230, 118, 0.05);
+     backdrop-filter: blur(10px);'>
+    <div style='font-size: 0.9rem; color: #00E676; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem; opacity: 0.8;'>
+        ◆ BULK PROCESSING ◆
+    </div>
+    <h1 style='font-size: 3rem; margin: 0; color: #00E676; text-shadow: 0 0 30px rgba(0, 230, 118, 0.6);'>
+        Batch Processing
+    </h1>
+    <p style='font-size: 1.125rem; margin-top: 1rem; color: #80DEEA;'>
+        Process multiple claims simultaneously with AI-powered fraud detection
+    </p>
 </div>
 """, unsafe_allow_html=True)
 

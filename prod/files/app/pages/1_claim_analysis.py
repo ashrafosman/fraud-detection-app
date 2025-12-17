@@ -19,50 +19,88 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for modern look
+# Custom CSS - Futuristic design
 st.markdown("""
 <style>
-    /* Enhanced styling */
+    /* Global styling */
+    .stApp {
+        background: linear-gradient(135deg, #0A1929 0%, #071318 100%);
+        color: #E0F7FA;
+    }
+    
+    /* Enhanced claim card */
     .claim-card {
-        background: white;
+        background: rgba(19, 47, 63, 0.6);
+        border: 1px solid rgba(0, 217, 255, 0.3);
         padding: 1.5rem;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 217, 255, 0.1);
         margin: 1rem 0;
-        border-left: 4px solid #667eea;
+        border-left: 4px solid #00D9FF;
+        backdrop-filter: blur(10px);
     }
     
+    /* Fraud alert - high risk */
     .fraud-alert {
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
-        color: white;
+        background: linear-gradient(135deg, rgba(255, 23, 68, 0.2) 0%, rgba(255, 23, 68, 0.1) 100%);
+        border: 2px solid #FF1744;
+        color: #FF1744;
         padding: 1.5rem;
-        border-radius: 12px;
+        border-radius: 16px;
         margin: 1rem 0;
-        box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+        box-shadow: 0 8px 32px rgba(255, 23, 68, 0.3), inset 0 0 40px rgba(255, 23, 68, 0.1);
+        backdrop-filter: blur(10px);
     }
     
+    /* Legitimate alert - low risk */
     .legitimate-alert {
-        background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
-        color: white;
+        background: linear-gradient(135deg, rgba(0, 230, 118, 0.2) 0%, rgba(0, 230, 118, 0.1) 100%);
+        border: 2px solid #00E676;
+        color: #00E676;
         padding: 1.5rem;
-        border-radius: 12px;
+        border-radius: 16px;
         margin: 1rem 0;
-        box-shadow: 0 4px 12px rgba(81,207,102,0.3);
+        box-shadow: 0 8px 32px rgba(0, 230, 118, 0.3), inset 0 0 40px rgba(0, 230, 118, 0.1);
+        backdrop-filter: blur(10px);
     }
     
+    /* Tool badges */
     .tool-badge {
         display: inline-block;
-        padding: 0.25rem 0.75rem;
+        padding: 0.4rem 1rem;
         border-radius: 20px;
         font-size: 0.875rem;
         font-weight: 600;
         margin: 0.25rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: 1px solid;
     }
     
-    .classify-badge { background: #e3f2fd; color: #1565c0; }
-    .extract-badge { background: #f3e5f5; color: #6a1b9a; }
-    .search-badge { background: #fff3e0; color: #ef6c00; }
-    .explain-badge { background: #e8f5e9; color: #2e7d32; }
+    .classify-badge { 
+        background: rgba(0, 217, 255, 0.1); 
+        color: #00D9FF; 
+        border-color: rgba(0, 217, 255, 0.4);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+    .extract-badge { 
+        background: rgba(156, 39, 176, 0.1); 
+        color: #AB47BC; 
+        border-color: rgba(156, 39, 176, 0.4);
+        box-shadow: 0 0 20px rgba(156, 39, 176, 0.2);
+    }
+    .search-badge { 
+        background: rgba(255, 193, 7, 0.1); 
+        color: #FFC107; 
+        border-color: rgba(255, 193, 7, 0.4);
+        box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+    }
+    .explain-badge { 
+        background: rgba(0, 230, 118, 0.1); 
+        color: #00E676; 
+        border-color: rgba(0, 230, 118, 0.4);
+        box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
+    }
     
     /* Animation for results */
     @keyframes fadeIn {
@@ -74,24 +112,60 @@ st.markdown("""
         animation: fadeIn 0.5s ease-out;
     }
     
-    /* Progress indicator */
+    /* Progress indicator with glow */
     .thinking-animation {
         display: inline-block;
         animation: pulse 1.5s ease-in-out infinite;
+        filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.6));
     }
     
     @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+        0%, 100% { 
+            opacity: 1; 
+            transform: scale(1);
+        }
+        50% { 
+            opacity: 0.6; 
+            transform: scale(1.05);
+        }
+    }
+    
+    /* Button override */
+    .stButton>button {
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(0, 184, 212, 0.1) 100%);
+        border: 2px solid #00D9FF;
+        color: #00D9FF !important;
+        border-radius: 12px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+    
+    .stButton>button:hover {
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.4);
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.2) 0%, rgba(0, 184, 212, 0.2) 100%);
     }
 </style>
 """, unsafe_allow_html=True)
 
-# Header
+# Header - Futuristic design
 st.markdown("""
-<div style='text-align: center; padding: 2rem 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; margin-bottom: 2rem; color: white;'>
-    <h1 style='font-size: 2.5rem; margin: 0; color: white; -webkit-text-fill-color: white;'>📊 AI Claim Analysis</h1>
-    <p style='font-size: 1.125rem; margin-top: 0.5rem; opacity: 0.95;'>Intelligent fraud detection powered by LangGraph agents</p>
+<div style='text-align: center; padding: 3rem 2rem; 
+     background: linear-gradient(135deg, rgba(0, 217, 255, 0.1) 0%, rgba(19, 47, 63, 0.8) 100%);
+     border: 1px solid rgba(0, 217, 255, 0.3); border-radius: 20px; margin-bottom: 2rem;
+     box-shadow: 0 8px 32px rgba(0, 217, 255, 0.2), inset 0 0 60px rgba(0, 217, 255, 0.05);
+     backdrop-filter: blur(10px);'>
+    <div style='font-size: 0.9rem; color: #00D9FF; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem; opacity: 0.8;'>
+        ◆ AGENT ANALYSIS ◆
+    </div>
+    <h1 style='font-size: 3rem; margin: 0; color: #00D9FF; text-shadow: 0 0 30px rgba(0, 217, 255, 0.6);'>
+        AI Claim Analysis
+    </h1>
+    <p style='font-size: 1.125rem; margin-top: 1rem; color: #80DEEA;'>
+        Intelligent fraud detection powered by LangGraph agents
+    </p>
 </div>
 """, unsafe_allow_html=True)
 
