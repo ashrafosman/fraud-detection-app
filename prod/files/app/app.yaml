@@ -12,23 +12,23 @@ command: ['streamlit', 'run', 'app_databricks.py']
 env:
   # Core Databricks connection
   - name: 'DATABRICKS_HOST'
-    value: 'fe-vm-industry-solutions-buildathon.cloud.databricks.com'
+    value: ''
   - name: 'DATABRICKS_WAREHOUSE_ID'
-    value: '159828d8fa91cd28'
+    value: ''
   
   # Unity Catalog configuration
   - name: 'CATALOG_NAME'
-    value: 'fraud_detection_prod'
+    value: ''
   - name: 'SCHEMA_NAME'
-    value: 'claims_analysis'
+    value: ''
   
   # Vector Search configuration
   - name: 'VECTOR_ENDPOINT'
-    value: 'one-env-shared-endpoint-2'
+    value: ''
   
   # LLM configuration
   - name: 'LLM_ENDPOINT'
-    value: 'databricks-claude-sonnet-4-5'
+    value: ''
   
   # Genie Space ID (for Fraud Insights page)
   - name: 'GENIE_SPACE_ID'
@@ -36,8 +36,8 @@ env:
   
   # Environment identifier
   - name: 'ENVIRONMENT'
-    value: 'prod'
+    value: ''
   
   # Embedding model for vector search
   - name: 'EMBEDDING_MODEL'
-    value: 'databricks-gte-large-en'
+    value: ''
