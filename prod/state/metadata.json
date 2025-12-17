@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "config": {
+    "bundle": {
+      "git": {
+        "branch": "main",
+        "origin_url": "https://github.com/bigdatavik/FraudDetectionForClaimsData.git",
+        "commit": "54665811174851037c6b833a9e5fbcca72a31983",
+        "bundle_root_path": "."
+      }
+    },
+    "workspace": {
+      "file_path": "/Workspace/Users/vik.malhotra@databricks.com/.bundle/fraud_detection_claims/prod/files"
+    },
+    "resources": {
+      "jobs": {
+        "setup_fraud_detection": {
+          "id": "679519260039491",
+          "relative_path": "databricks.yml"
+        }
+      }
+    }
+  }
+}
