@@ -443,84 +443,41 @@ if w is None:
     st.sidebar.error("⚠️ Not connected to Databricks")
     st.sidebar.info("Deploy to Databricks Apps to enable full functionality")
 
-# Enhanced Sidebar - Futuristic design
+# Enhanced Sidebar - Clean design
+st.sidebar.markdown("# 🛡️ Fraud Detection")
+st.sidebar.caption("AI-POWERED CLAIMS ANALYSIS")
+
+# Environment info - Simplified
+st.sidebar.markdown("---")
+env_emoji = "🟢" if ENVIRONMENT == "prod" else "🟡" if ENVIRONMENT == "staging" else "🔵"
+st.sidebar.markdown(f"### {env_emoji} Environment: `{ENVIRONMENT.upper()}`")
+st.sidebar.text(f"📁 Catalog: {CATALOG}")
+st.sidebar.text(f"📊 Schema: {SCHEMA}")
+st.sidebar.markdown("---")
+
+# Navigation - Simplified
+st.sidebar.markdown("### 📍 NAVIGATION")
 st.sidebar.markdown("""
-<div style='text-align: center; padding: 1.5rem 0; border-bottom: 1px solid rgba(0, 217, 255, 0.2);'>
-    <h1 style='font-size: 2.5rem; margin: 0; filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.8));'>🛡️</h1>
-    <h2 style='font-size: 1.5rem; margin: 0.5rem 0; color: #00D9FF; text-shadow: 0 0 15px rgba(0, 217, 255, 0.5);'>
-        Fraud Detection
-    </h2>
-    <p style='color: #80DEEA; font-size: 0.875rem; letter-spacing: 1px;'>AI-POWERED CLAIMS ANALYSIS</p>
-</div>
-""", unsafe_allow_html=True)
+- 🏠 **Home** - Dashboard & Overview
+- 📊 **Claim Analysis** - AI Agent Analysis
+- ⚡ **Batch Processing** - Bulk Claims
+- 📈 **Fraud Insights** - Analytics & Trends
+- 🔎 **Case Search** - Similar Cases
+- 📱 **Mobile Check** - Photo AI
+""")
 
-# Environment info - Futuristic design
-env_color = "#00E676" if ENVIRONMENT == "prod" else "#FFC107" if ENVIRONMENT == "staging" else "#00D9FF"
-env_glow = "rgba(0, 230, 118, 0.3)" if ENVIRONMENT == "prod" else "rgba(255, 193, 7, 0.3)" if ENVIRONMENT == "staging" else "rgba(0, 217, 255, 0.3)"
-st.sidebar.markdown(f"""
-<div style='background: rgba(19, 47, 63, 0.6); border: 1px solid rgba(0, 217, 255, 0.3); 
-     padding: 1rem; border-radius: 12px; margin: 1rem 0;
-     box-shadow: 0 4px 20px {env_glow};'>
-    <div style='display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;'>
-        <span style='color: {env_color}; font-size: 1.5rem; filter: drop-shadow(0 0 10px {env_color});'>●</span>
-        <span style='color: #00D9FF; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;'>
-            {ENVIRONMENT}
-        </span>
-    </div>
-    <div style='color: #80DEEA; font-size: 0.75rem;'>
-        <div style='margin-bottom: 0.5rem;'>
-            📁 <span style='color: #00D9FF;'>Catalog:</span>
-            <code style='background: rgba(0,0,0,0.4); padding: 0.125rem 0.5rem; border-radius: 4px; color: #00E676;'>{CATALOG}</code>
-        </div>
-        <div>
-            📊 <span style='color: #00D9FF;'>Schema:</span>
-            <code style='background: rgba(0,0,0,0.4); padding: 0.125rem 0.5rem; border-radius: 4px; color: #00E676;'>{SCHEMA}</code>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+st.sidebar.markdown("---")
 
-st.sidebar.markdown("<div style='border-top: 1px solid rgba(0, 217, 255, 0.2); margin: 1rem 0;'></div>", unsafe_allow_html=True)
+# Quick stats in sidebar - Futuristic design  
+st.sidebar.markdown("### ⚡ QUICK STATS")
 
-# Navigation with icons - Futuristic design
-st.sidebar.markdown("""
-<div style='color: #80DEEA;'>
-    <h3 style='color: #00D9FF; font-size: 0.9rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;'>
-        📍 Navigation
-    </h3>
-    <div style='margin-left: 0rem;'>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; background: rgba(0, 217, 255, 0.05); border-left: 3px solid #00D9FF; border-radius: 4px;'>
-            🏠 <strong style='color: #00D9FF;'>Home</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Dashboard</span>
-        </div>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
-            📊 <strong style='color: #80DEEA;'>Claim Analysis</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- AI Agent</span>
-        </div>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
-            ⚡ <strong style='color: #80DEEA;'>Batch Processing</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Bulk</span>
-        </div>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
-            📈 <strong style='color: #80DEEA;'>Fraud Insights</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Analytics</span>
-        </div>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
-            🔎 <strong style='color: #80DEEA;'>Case Search</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Similar</span>
-        </div>
-        <div style='padding: 0.5rem; margin-bottom: 0.5rem; border-left: 3px solid rgba(0, 217, 255, 0.2); border-radius: 4px;'>
-            📱 <strong style='color: #80DEEA;'>Mobile Check</strong> <span style='font-size: 0.75rem; opacity: 0.7;'>- Photo AI</span>
-        </div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("<div style='border-top: 1px solid rgba(0, 217, 255, 0.2); margin: 1rem 0;'></div>", unsafe_allow_html=True)
-
-# Quick stats in sidebar - Futuristic design
-st.sidebar.markdown("""
-<div style='color: #80DEEA;'>
-    <h3 style='color: #00D9FF; font-size: 0.9rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;'>
-        ⚡ Quick Stats
-    </h3>
-</div>
-""", unsafe_allow_html=True)
+# Add system status metric
+col1, col2 = st.sidebar.columns(2)
+with col1:
+    status_icon = "✅" if w else "❌"
+    st.metric("System", status_icon)
+with col2:
+    st.metric("Status", "Ready" if w else "Error")
 
 # Main page with futuristic hero section
 st.markdown("""
